@@ -6,6 +6,8 @@ import ch.heigvd.gamification.repositories.ApplicationRepository;
 import ch.heigvd.gamification.repositories.BadgeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -32,7 +34,8 @@ public class BadgeService {
         badgeRepository.save(newBadgeEntity);
     }
 
-    public Iterable<BadgeEntity> findByApplicationEntity_ApiKey(String X_API_KEY) {
-        return badgeRepository.findByApplicationEntity_ApiKey(X_API_KEY.toString());
+    public Iterable<BadgeEntity> findByApplicationEntity_ApiKey(String X_API_KEY, int offset, int limit) {
+        Pageable page = PageRequest.of(offset, limit);
+        return badgeRepository.findByApplicationEntity_ApiKey(X_API_KEY.toString(), page);
     }
 }

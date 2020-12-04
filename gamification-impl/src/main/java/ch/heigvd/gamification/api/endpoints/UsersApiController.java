@@ -57,7 +57,7 @@ public class UsersApiController implements UsersApi {
 
         List<User> users = new ArrayList<>();
 
-        userService.findByApplicationEntity_ApiKey(X_API_KEY.toString())
+        userService.findByApplicationEntity_ApiKey(X_API_KEY.toString(), offset, limit)
                 .forEach(userEntity -> users.add(toUser(userEntity)));
 
         return ResponseEntity.ok(users);

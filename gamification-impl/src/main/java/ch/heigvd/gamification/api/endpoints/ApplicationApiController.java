@@ -48,7 +48,7 @@ public class ApplicationApiController implements ApplicationsApi {
 
     @Override
     public ResponseEntity<Application> getApplication(@ApiParam(value = "" ,required=true) @RequestHeader(value="X-API-KEY", required=true) UUID X_API_KEY, @ApiParam(value = "The number of items to skip before starting to collect the result set.") @Valid @RequestParam(value = "offset", required = false) Integer offset, @ApiParam(value = "The number of items to return.") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
-        ApplicationEntity applicationEntity = applicationService.findByApiKey(X_API_KEY.toString());
+        ApplicationEntity applicationEntity = applicationService.findByApiKey(X_API_KEY.toString(), offset, limit);
 
         Application app = new Application();
 

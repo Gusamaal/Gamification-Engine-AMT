@@ -6,6 +6,8 @@ import ch.heigvd.gamification.repositories.ApplicationRepository;
 import ch.heigvd.gamification.repositories.BadgeRepository;
 import ch.heigvd.gamification.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,8 +29,8 @@ public class EventProcessorServiceImpl implements EventProcessorService{
     public void addBadgetoUser(String apikey, String username) {
         List<BadgeEntity> badges = new ArrayList<>();
         List<BadgeEntity> userBadges = null;
-
-        badgeRepository.findByApplicationEntity_ApiKey(apikey)
+        Pageable page = null; //?
+        badgeRepository.findByApplicationEntity_ApiKey(apikey,page)
                 .forEach(badge -> badges.add(badge));
 
         UserEntity currentUser = userRepository
