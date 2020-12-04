@@ -1,6 +1,8 @@
 package ch.heigvd.gamification.api.endpoints;
 
 import ch.heigvd.gamification.api.BadgesApi;
+import ch.heigvd.gamification.api.services.ApplicationService;
+import ch.heigvd.gamification.api.services.BadgeService;
 import ch.heigvd.gamification.entities.ApplicationEntity;
 import ch.heigvd.gamification.entities.BadgeEntity;
 import ch.heigvd.gamification.repositories.ApplicationRepository;
@@ -29,20 +31,16 @@ import static ch.heigvd.gamification.api.util.BadgeUtils.*;
 public class BadgesApiController implements BadgesApi {
 
     @Autowired
-    BadgeRepository badgeRepository;
-
-    @Autowired
-    ApplicationRepository applicationRepository;
+    BadgeService badgeService;
 
     @Override
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Void> createBadge(UUID X_API_KEY, @Valid Badge badge) {
         BadgeEntity newBadgeEntity = toBadgeEntity(badge);
 
-        ApplicationEntity applicationEntity = applicationRepository.findByApiKey(X_API_KEY.toString());
+        badgeService.createBadge(newBadgeEntity, X_API_KEY);
 
-        newBadgeEntity.setApplicationEntity(applicationEntity);
-        badgeRepository.save(newBadgeEntity);
+
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
@@ -54,8 +52,8 @@ public class BadgesApiController implements BadgesApi {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Void> createBadge(Badge badge){
         BadgeEntity newBadgeEntity = toBadgeEntity(badge);
-        badgeRepository.save(newBadgeEntity);
 
+        badgeService.createBadge(newBadgeEntity);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newBadgeEntity.getId()).toUri();
@@ -68,7 +66,8 @@ public class BadgesApiController implements BadgesApi {
 
         List<Badge> badges = new ArrayList<>();
 
-        badgeRepository.findByApplicationEntity_ApiKey(X_API_KEY.toString())
+
+        badgeService.findByApplicationEntity_ApiKey(X_API_KEY.toString())
                 .forEach(badgeEntity -> badges.add(toBadge(badgeEntity)));
 
         return ResponseEntity.ok(badges);

@@ -3,6 +3,7 @@ package ch.heigvd.gamification.api.endpoints;
 import ch.heigvd.gamification.api.ApplicationsApi;
 import ch.heigvd.gamification.api.model.ApiKey;
 import ch.heigvd.gamification.api.model.Application;
+import ch.heigvd.gamification.api.services.ApplicationService;
 import ch.heigvd.gamification.entities.ApplicationEntity;
 import ch.heigvd.gamification.repositories.ApplicationRepository;
 import io.swagger.annotations.ApiParam;
@@ -24,7 +25,7 @@ import java.util.UUID;
 public class ApplicationApiController implements ApplicationsApi {
 
     @Autowired
-    ApplicationRepository applicationRepository;
+    ApplicationService applicationService;
 
     @Override
     public ResponseEntity<ApiKey> createApplication(@ApiParam(value = "",required=true) @Valid Application application) {
@@ -36,7 +37,7 @@ public class ApplicationApiController implements ApplicationsApi {
         newApplicationEntity.setApiKey(apiKey.getKey().toString());
         newApplicationEntity.setName(application.getName());
 
-        applicationRepository.save(newApplicationEntity);
+        applicationService.create(newApplicationEntity);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}")
@@ -47,7 +48,7 @@ public class ApplicationApiController implements ApplicationsApi {
 
     @Override
     public ResponseEntity<Application> getApplication(@ApiParam(value = "" ,required=true) @RequestHeader(value="X-API-KEY", required=true) UUID X_API_KEY, @ApiParam(value = "The number of items to skip before starting to collect the result set.") @Valid @RequestParam(value = "offset", required = false) Integer offset, @ApiParam(value = "The number of items to return.") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
-        ApplicationEntity applicationEntity = applicationRepository.findByApiKey(X_API_KEY.toString());
+        ApplicationEntity applicationEntity = applicationService.findByApiKey(X_API_KEY.toString());
 
         Application app = new Application();
 

@@ -1,7 +1,5 @@
 package ch.heigvd.gamification.api.endpoints;
 
-
-import ch.heigvd.gamification.RFC3339DateFormat;
 import ch.heigvd.gamification.api.EventsApi;
 import ch.heigvd.gamification.api.model.User;
 import ch.heigvd.gamification.api.model.Event;

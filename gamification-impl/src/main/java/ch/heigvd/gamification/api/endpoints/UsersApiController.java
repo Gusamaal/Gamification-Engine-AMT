@@ -5,6 +5,7 @@ import ch.heigvd.gamification.api.UsersApi;
 import ch.heigvd.gamification.api.model.Application;
 import ch.heigvd.gamification.api.model.Badge;
 import ch.heigvd.gamification.api.model.User;
+import ch.heigvd.gamification.api.services.UserService;
 import ch.heigvd.gamification.entities.ApplicationEntity;
 import ch.heigvd.gamification.entities.UserEntity;
 
@@ -15,9 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -36,19 +35,14 @@ import static ch.heigvd.gamification.api.util.BadgeUtils.*;
 public class UsersApiController implements UsersApi {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
-    @Autowired
-    ApplicationRepository applicationRepository;
 
     @Override
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<Void> createUser(UUID X_API_KEY, @Valid User user) {
         UserEntity newUserEntity = toUserEntity(user);
-        ApplicationEntity applicationEntity = applicationRepository.findByApiKey(X_API_KEY.toString());
-        newUserEntity.setApplicationEntity(applicationEntity);
-
-        userRepository.save(newUserEntity);
+        newUserEntity = userService.createUser(newUserEntity, X_API_KEY.toString());
 
         Long id = newUserEntity.getId();
         URI location = ServletUriComponentsBuilder
@@ -59,10 +53,11 @@ public class UsersApiController implements UsersApi {
     }
 
     @Override
-    public ResponseEntity<List<User>> getUsers(UUID X_API_KEY) {
+    public ResponseEntity<List<User>> getUsers(@ApiParam(value = "" ,required=true) @RequestHeader(value="X-API-KEY", required=true) UUID X_API_KEY,@ApiParam(value = "The number of items to skip before starting to collect the result set.") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "The number of items to return.") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
+
         List<User> users = new ArrayList<>();
 
-        userRepository.findByApplicationEntity_ApiKey(X_API_KEY.toString())
+        userService.findByApplicationEntity_ApiKey(X_API_KEY.toString())
                 .forEach(userEntity -> users.add(toUser(userEntity)));
 
         return ResponseEntity.ok(users);
@@ -70,7 +65,7 @@ public class UsersApiController implements UsersApi {
 
     public ResponseEntity<List<User>> getUsers() {
         List<User> users = new ArrayList<>();
-        for (UserEntity userEntity : userRepository.findAll()) {
+        for (UserEntity userEntity : userService.findAll()) {
             users.add(toUser(userEntity));
         }
         return ResponseEntity.ok(users);
@@ -78,19 +73,17 @@ public class UsersApiController implements UsersApi {
 
     @Override
     public ResponseEntity<User> getUser(Integer id, UUID X_API_KEY) {
-        UserEntity existingUserEntity = userRepository
-                .findByApplicationEntity_ApiKeyAndId(X_API_KEY.toString(),Long.valueOf(id))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        UserEntity existingUserEntity = userService
+                .findByApplicationEntity_ApiKeyAndId(X_API_KEY.toString(),Long.valueOf(id));
 
         return ResponseEntity.ok(toUser(existingUserEntity));
     }
 
     @Override
-    public ResponseEntity<List<Badge>> getUsersBadges(Integer id, UUID X_API_KEY) {
+    public ResponseEntity<List<Badge>> getUsersBadges(@ApiParam(value = "",required=true) @PathVariable("id") Integer id,@ApiParam(value = "" ,required=true) @RequestHeader(value="X-API-KEY", required=true) UUID X_API_KEY,@ApiParam(value = "The number of items to skip before starting to collect the result set.") @Valid @RequestParam(value = "offset", required = false) Integer offset,@ApiParam(value = "The number of items to return.") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
         List<Badge> badges = new ArrayList<>();
-        UserEntity existingUserEntity = userRepository
-                .findByApplicationEntity_ApiKeyAndId(X_API_KEY.toString(),Long.valueOf(id))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        UserEntity existingUserEntity = userService
+                .findByApplicationEntity_ApiKeyAndId(X_API_KEY.toString(),Long.valueOf(id));
 
         existingUserEntity.getBadgeEntitys().forEach(badgeEntity -> badges.add(toBadge(badgeEntity)));
         return ResponseEntity.ok(badges);
