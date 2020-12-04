@@ -34,6 +34,8 @@ paths:
       security:
         - apiKeyAuth: []
       parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
         - in : header
           name: X-API-KEY
           schema:
@@ -82,6 +84,8 @@ paths:
       security:
         - apiKeyAuth: []
       parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
         - in: path
           name: id
           schema:
@@ -148,6 +152,8 @@ paths:
       security:
         - apiKeyAuth: []
       parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
         - in : header
           name: X-API-KEY
           schema:
@@ -185,6 +191,8 @@ paths:
       security:
         - apiKeyAuth: []
       parameters:
+        - $ref: '#/components/parameters/offsetParam'
+        - $ref: '#/components/parameters/limitParam'
         - in: header
           name: X-API-KEY
           schema:
@@ -208,7 +216,28 @@ components:
       type: apiKey
       in: header
       name: X-API-KEY
+  #--------------------------------
+  #  Parameters
+  #--------------------------------
+  parameters:
+    offsetParam:
+      in: query
+      name: offset
+      schema:
+        type: integer
+      required: false
+      description: The number of items to skip before starting to collect the result set.
+    limitParam:
+      in: query
+      name: limit
+      schema:
+        type: integer
+      required: false
+      description: The number of items to return.
   schemas:
+    #--------------------------------
+    #  Entities
+    #--------------------------------
     # Scheme for Events
     Event:
       type: object
