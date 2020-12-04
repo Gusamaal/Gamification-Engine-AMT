@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ch.heigvd.gamification.api.model.Badge;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -62,7 +64,7 @@ public class BadgesApiController implements BadgesApi {
     }
 
     @Override
-    public ResponseEntity<List<Badge>> getBadges(UUID X_API_KEY) {
+    public ResponseEntity<List<Badge>> getBadges(@ApiParam(value = "" ,required=true) @RequestHeader(value="X-API-KEY", required=true) UUID X_API_KEY, @ApiParam(value = "The number of items to skip before starting to collect the result set.") @Valid @RequestParam(value = "offset", required = false) Integer offset, @ApiParam(value = "The number of items to return.") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
 
         List<Badge> badges = new ArrayList<>();
 

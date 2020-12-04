@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -44,7 +46,7 @@ public class ApplicationApiController implements ApplicationsApi {
     }
 
     @Override
-    public ResponseEntity<Application> getApplication(UUID X_API_KEY) {
+    public ResponseEntity<Application> getApplication(@ApiParam(value = "" ,required=true) @RequestHeader(value="X-API-KEY", required=true) UUID X_API_KEY, @ApiParam(value = "The number of items to skip before starting to collect the result set.") @Valid @RequestParam(value = "offset", required = false) Integer offset, @ApiParam(value = "The number of items to return.") @Valid @RequestParam(value = "limit", required = false) Integer limit) {
         ApplicationEntity applicationEntity = applicationRepository.findByApiKey(X_API_KEY.toString());
 
         Application app = new Application();
