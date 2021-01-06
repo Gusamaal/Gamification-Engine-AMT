@@ -14,19 +14,20 @@ public class EventSteps {
     private DefaultApi api;
     private BasicSteps basicSteps;
     private ApplicationSteps applicationSteps;
-    private BadgeSteps badgeSteps;
-    private UserSteps userSteps;
+    // private BadgeSteps badgeSteps;
+    // private UserSteps userSteps;
 
     Event event;
     EventEventparams eventparams;
 
-    public EventSteps(Environment environment, BasicSteps basicSteps, ApplicationSteps applicationSteps, UserSteps userSteps, BadgeSteps badgeSteps) {
+    // I might need to call the steps in a cascad way: call applicationSteps from Usersteps
+    public EventSteps(Environment environment, BasicSteps basicSteps, ApplicationSteps applicationSteps /*, UserSteps userSteps, BadgeSteps badgeSteps */) {
         this.environment = environment;
         this.api = environment.getApi();
         this.basicSteps = basicSteps;
         this.applicationSteps = applicationSteps;
-        this.userSteps = userSteps;
-        this.badgeSteps = badgeSteps;
+        //this.userSteps = userSteps;
+        //this.badgeSteps = badgeSteps;
     }
 
     @Given("I have an event payload")
