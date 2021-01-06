@@ -6,10 +6,13 @@ import ch.heigvd.gamification.api.dto.ApiKey;
 import ch.heigvd.gamification.api.dto.Application;
 import ch.heigvd.gamification.api.spec.helpers.Environment;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 
 import java.util.UUID;
+
+import static org.junit.Assert.assertEquals;
 
 public class ApplicationSteps {
 
@@ -19,6 +22,8 @@ public class ApplicationSteps {
 
     private Application application;
     private UUID apiKey;
+    private Application lastReceivedApplication;
+
 
     public ApplicationSteps(Environment environment, BasicSteps basicSteps) {
         this.environment = environment;
@@ -54,6 +59,7 @@ public class ApplicationSteps {
     public void iSendAGETToTheApplicationsEndpointWithAnAPIKey() {
         try {
             basicSteps.processApiResponse(api.getApplicationWithHttpInfo(apiKey));
+            lastReceivedApplication = (Application) basicSteps.getlastApiResponse().getData();
         } catch (ApiException e) {
             basicSteps.processApiException(e);
         }
@@ -62,5 +68,10 @@ public class ApplicationSteps {
     @Given("I have a random API Key")
     public void iHaveARandomAPIKey() {
         apiKey = UUID.randomUUID();
+    }
+
+    @And("I receive a payload that corresponds to the application payload")
+    public void iReceiveAPayloadThatCorrespondsToTheApplicationPayload(){
+        assertEquals(application.getName(), lastReceivedApplication.getName());
     }
 }

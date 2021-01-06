@@ -17,12 +17,13 @@ public class BasicSteps {
     private Environment environment;
     private DefaultApi api;
 
-    // the four basicSteps variable
+    // the four horsemen of the apocalypse
     private ApiResponse lastApiResponse;
     private ApiException lastApiException;
     private boolean lastApiCallThrewException;
     private int lastStatusCode;
 
+    // A lost horsman
     private String lastReceivedLocationHeader;
 
     public BasicSteps(Environment environment) {
@@ -75,5 +76,10 @@ public class BasicSteps {
 
     public ApiResponse getlastApiResponse(){
         return lastApiResponse;
+    }
+
+    public int getLastApiResponseLocationId(){
+        String[] elements = lastReceivedLocationHeader.split("/");
+        return Integer.parseInt(elements[elements.length-1]);
     }
 }
