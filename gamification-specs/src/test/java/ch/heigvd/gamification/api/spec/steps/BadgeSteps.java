@@ -42,7 +42,7 @@ public class BadgeSteps {
     }
 
     @When("^I send a GET to the /badges endpoint$")
-    public void iSendAGETToTheBadgesEndpoint() {
+    public void i_send_a_GET_to_the_badges_endpoint() {
         try {
             basicSteps.processApiResponse(api.getBadgesWithHttpInfo(applicationSteps.getApiKey()));
         } catch (ApiException e) {

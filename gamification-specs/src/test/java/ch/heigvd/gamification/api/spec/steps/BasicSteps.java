@@ -43,7 +43,7 @@ public class BasicSteps {
 
     // this is never used
     @Then("I receive a {int} status code with a location header")
-    public void iReceiveAStatusCodeWithALocationHeader(int arg0) {
+    public void i_receive_a_status_code_with_a_location_header(int arg0) {
     }
 
     /*@When("I send a GET to the URL in the location header")
