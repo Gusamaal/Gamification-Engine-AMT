@@ -38,7 +38,7 @@ Feature: User operations on applications
     When I send a GET to the users-reputations endpoint
     Then I receive a 200 status code
 
-    
+
   Scenario: get all users reputation with real user, badge and pointscale
     Given I have an application payload
     When I POST the application payload to the /applications endpoint
@@ -121,6 +121,22 @@ Feature: User operations on applications
     And I receive a pointscale that corresponds to the payload
 
   Scenario: get a reputation from a user username
+    Given I have an application payload
+    When I POST the application payload to the /applications endpoint
+    Given I have a correct API key
+    Given I have a second pointscale payload
+    When I POST the pointscale payload to the /pointscale endpoint
+    Given I have a badge payload
+    When I POST the badge payload to the /badges endpoint
+    Given I have a badge rule payload
+    When I POST the rule payload to the /rules endpoint
+    Given I have a user payload
+    When I POST the user payload to the /users endpoint
+    Given I have a badge event payload
+    When I POST the badge event payload to the /events endpoint
+    When I send a GET to the users-username-reputations endpoint
+    Then I receive a 200 status code
+    And I receive a payload that correspond to all payloads
 
 
 

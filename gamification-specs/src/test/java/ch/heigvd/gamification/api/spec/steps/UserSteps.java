@@ -92,6 +92,16 @@ public class UserSteps {
         }
     }
 
+    @When("I send a GET to the users-username-reputations endpoint")
+    public void iSendAGETToTheUsersUsernameReputationsEndpoint() {
+        try {
+            basicSteps.processApiResponse(api.getUserReputationWithHttpInfo(user.getUsername(), applicationSteps.getApiKey()));
+            lastReceivedReputation = (Reputation) basicSteps.getlastApiResponse().getData();
+        } catch (ApiException e) {
+            basicSteps.processApiException(e);
+        }
+    }
+
     public Reputation getLastReceivedReputation(){
         return lastReceivedReputation;
     }
@@ -134,4 +144,6 @@ public class UserSteps {
     public void iReceiveAnUnchangedPointscaleTotal() {
         assertEquals(0,lastReceivedPointscaleTotal);
     }
+
+
 }
