@@ -1,4 +1,5 @@
 [![Actions Status](https://github.com/Gusamaal/Gamification-Engine-AMT/workflows/.github/workflows/pipeline.yml/badge.svg)](https://github.com/Gusamaal/Gamification-Engine-AMT/actions)
+
 # AMT 2020 Gamification Engine
 
 | Nom               | email                        |
@@ -6,22 +7,20 @@
 | Alban Favre       | alban.favre@heig-vd.ch       |
 | Guillaume Zaretti | guillaume.zaretti@heig-vd.ch |
 | Sacha Perdrizat   | sacha.perdrizat@heig-vd.ch   |
-| Maximillian Vogel | maximillian.vogel@heig-vd.ch  |
+| Maximilian Vogel  | maximilian.vogel@heig-vd.ch  |
 
-## Linked applications and depedencies
+## Linked applications and dependencies
 
-StackOwerflow gamified project : see [`AMT2020-StackOverflowSimpleVersionGamified`](https://github.com/Gusamaal/AMT2020-StackOverflowSimpleGamified)
+We developed this API to link it to a previously built simple StackOverflow application : [`AMT2020-StackOverflowSimpleVersionGamified`](https://github.com/Gusamaal/AMT2020-StackOverflowSimpleGamified)
 
 ## Introduction
-The aim of this project is to bring to application developper a basic Gamification Engine through an API Rest. With this API you can gamifie an application.
+
+The aim of this project is to create a basic Gamification Engine through a REST API. It enables developers to "gamify" their applications, meaning they can link it to their app through HTTP requests giving it information about their users and their actions. Those actions can then be sent to/evaluated by the API to give the users points/badges which they can see in their profile in the application.
 
 ## Documentation
-More documentation for this repository can be found in the [`docs`](docs)
+
+Getting started or looking for more documentation? All the info can be found in the [`docs`](docs)
 directory.
-
-### Getting started see the [`docs`](docs) directory.
-
-
 
 ## License
 
@@ -34,7 +33,7 @@ License** - see the [Creative Commons](https://creativecommons.org/licenses/by-n
 
 ## Contributing
 
-Thank you for considering contributing to Gamification engine amt! Here is some help
+Thank you for considering contributing to the AMT Gamification Engine ! Here is some help
 to get you started to contribute to the project:
 
 1. Please start by reading our code of conduct available in the
