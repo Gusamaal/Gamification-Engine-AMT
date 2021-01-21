@@ -11,6 +11,6 @@ Feature: Events operations on applications
     When I POST the user payload to the /users endpoint
     Given I have a badge payload
     When I POST the badge payload to the /badges endpoint
-    Given I have an event payload
-    When I POST the event payload to the /events endpoint
+    Given I have a badge event payload
+    When I POST the badge event payload to the /events endpoint
     Then I receive a 202 status code

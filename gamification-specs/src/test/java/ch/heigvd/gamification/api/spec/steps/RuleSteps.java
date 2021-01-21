@@ -36,7 +36,7 @@ public class RuleSteps {
         .then(new ch.heigvd.gamification.api.dto.RuleThen()
                 .action(new ch.heigvd.gamification.api.dto.RuleThenAction()
                         .name("addBadge")
-                        .target("red") // targeted badge
+                        .target("goodBoiBadge") // targeted badge
                         .amount(0) // no points when badgeAction
                 )
         ); //this is pure insanity
@@ -46,7 +46,7 @@ public class RuleSteps {
     public void i_have_a_point_rule_payload() {
         rule = new ch.heigvd.gamification.api.dto.Rule()
                 ._if(new ch.heigvd.gamification.api.dto.RuleIf()
-                        .eventType("pointAction"))
+                        .eventType("chaussette"))
                 .then(new ch.heigvd.gamification.api.dto.RuleThen()
                         .action(new ch.heigvd.gamification.api.dto.RuleThenAction()
                                 .name("addPoint")
