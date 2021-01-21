@@ -18,7 +18,7 @@ public class RuleSteps {
     private Rule rule;
 
 
-    // I might need to call the steps in a cascad way: call applicationSteps from Usersteps
+    // I might need to call the steps in a cascade way: call applicationSteps from Usersteps
 
     public RuleSteps(Environment environment, BasicSteps basicSteps, ApplicationSteps applicationSteps, UserSteps userSteps) { // TODO add all steps ?
         this.environment = environment;

@@ -46,7 +46,7 @@ public class UserSteps {
     }
 
     @When("^I send a GET to the /users endpoint$")
-    public void iSendAGETToTheUsersEndpoint() {
+    public void i_send_a_GET_to_the_users_endpoint() {
         try {
             basicSteps.processApiResponse(api.getUsersWithHttpInfo(applicationSteps.getApiKey()));
         } catch (ApiException e) {
@@ -55,7 +55,7 @@ public class UserSteps {
     }
 
     @When("^I send a GET to the /user endpoint$")
-    public void iSendAGETToTheUserEndpoint() {
+    public void i_send_a_GET_to_the_user_endpoint() {
         try {
             basicSteps.processApiResponse(api.getUserWithHttpInfo(basicSteps.getLastApiResponseLocationId(),applicationSteps.getApiKey()));
             lastReceivedUser = (User) basicSteps.getlastApiResponse().getData();
@@ -65,7 +65,7 @@ public class UserSteps {
     }
 
     @And("I receive a payload that correspond to the user payload")
-    public void iReceiveAPayloadThatCorrespondsToTheUserPayload() {
+    public void i_receive_a_payload_that_corresponds_to_the_user_payload() {
         assertEquals(user.getUsername(), lastReceivedUser.getUsername());
     }
 

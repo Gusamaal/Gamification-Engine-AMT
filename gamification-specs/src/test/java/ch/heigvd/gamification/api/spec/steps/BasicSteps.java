@@ -78,6 +78,7 @@ public class BasicSteps {
         return lastApiResponse;
     }
 
+    //this is blackmagic to get the id
     public int getLastApiResponseLocationId(){
         String[] elements = lastReceivedLocationHeader.split("/");
         return Integer.parseInt(elements[elements.length-1]);

@@ -20,7 +20,7 @@ public class EventSteps {
     Event event;
     EventEventparams eventparams;
 
-    // I might need to call the steps in a cascad way: call applicationSteps from Usersteps
+    // I might need to call the steps in a cascade way: call applicationSteps from Usersteps
     public EventSteps(Environment environment, BasicSteps basicSteps, ApplicationSteps applicationSteps /*, UserSteps userSteps, BadgeSteps badgeSteps */) {
         this.environment = environment;
         this.api = environment.getApi();

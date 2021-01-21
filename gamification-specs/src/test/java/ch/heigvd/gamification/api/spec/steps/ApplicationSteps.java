@@ -36,7 +36,7 @@ public class ApplicationSteps {
     }
 
     @Given("I have an application payload")
-    public void iHaveAnApplicationPayload() {
+    public void i_have_an_application_payload() {
         application = new ch.heigvd.gamification.api.dto.Application()
                 .name("testApp");
     }
@@ -51,12 +51,12 @@ public class ApplicationSteps {
     }
 
     @Given("I have a correct API key")
-    public void iHaveACorrectAPIKey(){
+    public void i_have_a_correct_API_key(){
         apiKey = ((ApiKey) basicSteps.getlastApiResponse().getData()).getKey();
     }
 
     @When("^I send a GET to the /applications endpoint with an API Key")
-    public void iSendAGETToTheApplicationsEndpointWithAnAPIKey() {
+    public void i_send_a_GET_to_the_applications_endpoint_with_an_API_key() {
         try {
             basicSteps.processApiResponse(api.getApplicationWithHttpInfo(apiKey));
             lastReceivedApplication = (Application) basicSteps.getlastApiResponse().getData();
@@ -66,12 +66,12 @@ public class ApplicationSteps {
     }
 
     @Given("I have a random API Key")
-    public void iHaveARandomAPIKey() {
+    public void i_have_a_random_API_key() {
         apiKey = UUID.randomUUID();
     }
 
     @And("I receive a payload that corresponds to the application payload")
-    public void iReceiveAPayloadThatCorrespondsToTheApplicationPayload(){
+    public void i_receive_a_payload_that_corresponds_to_the_application_payload(){
         assertEquals(application.getName(), lastReceivedApplication.getName());
     }
 }
