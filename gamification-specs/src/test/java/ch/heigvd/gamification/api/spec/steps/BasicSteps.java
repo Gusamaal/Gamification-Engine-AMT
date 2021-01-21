@@ -17,12 +17,13 @@ public class BasicSteps {
     private Environment environment;
     private DefaultApi api;
 
-    // the four basicSteps variable
+    // the four horsemen of the apocalypse
     private ApiResponse lastApiResponse;
     private ApiException lastApiException;
     private boolean lastApiCallThrewException;
     private int lastStatusCode;
 
+    // A lost horsman
     private String lastReceivedLocationHeader;
 
     public BasicSteps(Environment environment) {
@@ -42,7 +43,7 @@ public class BasicSteps {
 
     // this is never used
     @Then("I receive a {int} status code with a location header")
-    public void iReceiveAStatusCodeWithALocationHeader(int arg0) {
+    public void i_receive_a_status_code_with_a_location_header(int arg0) {
     }
 
     /*@When("I send a GET to the URL in the location header")
@@ -75,5 +76,11 @@ public class BasicSteps {
 
     public ApiResponse getlastApiResponse(){
         return lastApiResponse;
+    }
+
+    //this is blackmagic to get the id
+    public int getLastApiResponseLocationId(){
+        String[] elements = lastReceivedLocationHeader.split("/");
+        return Integer.parseInt(elements[elements.length-1]);
     }
 }
