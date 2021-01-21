@@ -85,6 +85,7 @@ public class EventSteps {
         Reputation tmpReputation = userSteps.getLastReceivedReputation();
         assertTrue(userSteps.isPayloadUser(tmpReputation.getUsername()));
         assertTrue(badgeSteps.isPayloadBadge(tmpReputation.getBadges().get(0)));
+        assertTrue(pointscaleSteps.isPayloadPointscale(tmpReputation.getPointscales().get(0)));
 
 
         // add the rest
